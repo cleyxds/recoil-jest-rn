@@ -11,7 +11,7 @@ import { fireEvent, render } from "@testing-library/react-native"
 import Watches from "./Watches"
 
 import { RecoilRoot, useRecoilValue } from "recoil"
-import { default as WatchesAtom } from "./atoms/Watches"
+import { default as WatchesAtom } from "@atoms/Watches"
 
 export const RecoilObserver = ({ node, onChange }) => {
   const value = useRecoilValue(node)
@@ -81,26 +81,29 @@ test("should remove the last watch", () => {
 
   const removeLastButton = getByTestId("test-removeLast")
   // fireEvent.change(addSubmarinerButton, {
-    //   target: { value: { rmc: "1273y1nxi", familyCode: "submariner" } }
-    // })
+  //   target: { value: { rmc: "1273y1nxi", familyCode: "submariner" } }
+  // })
 
-    onChange({
-      watches: [{ rmc: "1273y1nxi", familyCode: "submariner" }],
-      dynamicWatches: []
-    })
-    onChange({
-      watches: [{ rmc: "1273y1nxi", familyCode: "submariner" }, { rmc: "1ij901asd", familyCode: "datejust" }],
-      dynamicWatches: []
-    })
-    
-    fireEvent.press(removeLastButton)
+  onChange({
+    watches: [{ rmc: "1273y1nxi", familyCode: "submariner" }],
+    dynamicWatches: []
+  })
+  onChange({
+    watches: [
+      { rmc: "1273y1nxi", familyCode: "submariner" },
+      { rmc: "1ij901asd", familyCode: "datejust" }
+    ],
+    dynamicWatches: []
+  })
 
-    expect(onChange).toHaveBeenCalledWith({
-      watches: [{ rmc: "1273y1nxi", familyCode: "submariner" }],
-      dynamicWatches: []
-    })
+  fireEvent.press(removeLastButton)
 
-    expect(onChange).toHaveBeenCalledTimes(4)
+  expect(onChange).toHaveBeenCalledWith({
+    watches: [{ rmc: "1273y1nxi", familyCode: "submariner" }],
+    dynamicWatches: []
+  })
+
+  expect(onChange).toHaveBeenCalledTimes(4)
 })
 
 test("clear state", () => {
@@ -115,29 +118,32 @@ test("clear state", () => {
 
   const clearStateButton = getByTestId("test-clearState")
   // fireEvent.change(addSubmarinerButton, {
-    //   target: { value: { rmc: "1273y1nxi", familyCode: "submariner" } }
-    // })
+  //   target: { value: { rmc: "1273y1nxi", familyCode: "submariner" } }
+  // })
 
-    onChange({
-      watches: [{ rmc: "1273y1nxi", familyCode: "submariner" }, { rmc: "1ij901asd", familyCode: "datejust" }],
-      dynamicWatches: []
-    })
+  onChange({
+    watches: [
+      { rmc: "1273y1nxi", familyCode: "submariner" },
+      { rmc: "1ij901asd", familyCode: "datejust" }
+    ],
+    dynamicWatches: []
+  })
 
-    onChange({
-      watches: [
-        { rmc: "1273y1nxi", familyCode: "submariner" },
-        { rmc: "1ij901asd", familyCode: "datejust" },
-        { rmc: "kjx93j190", familyCode: "pearlmaster" }
-      ],
-      dynamicWatches: []
-    })
-    
-    fireEvent.press(clearStateButton)
+  onChange({
+    watches: [
+      { rmc: "1273y1nxi", familyCode: "submariner" },
+      { rmc: "1ij901asd", familyCode: "datejust" },
+      { rmc: "kjx93j190", familyCode: "pearlmaster" }
+    ],
+    dynamicWatches: []
+  })
 
-    expect(onChange).toHaveBeenCalledWith({
-      watches: [],
-      dynamicWatches: []
-    })
+  fireEvent.press(clearStateButton)
 
-    expect(onChange).toHaveBeenCalledTimes(4)
+  expect(onChange).toHaveBeenCalledWith({
+    watches: [],
+    dynamicWatches: []
+  })
+
+  expect(onChange).toHaveBeenCalledTimes(4)
 })

@@ -4,6 +4,20 @@ module.exports = function (api) {
     presets: [
       "babel-preset-expo",
       ["@babel/preset-env", { targets: { node: "current" } }]
+    ],
+    plugins: [
+      [
+        "module-resolver",
+        {
+          root: ["./"],
+          alias: {
+            "@atoms": "./atoms",
+            "@components": "./components",
+            "@hooks": "./hooks",
+            "@theme": "./styles/theme"
+          }
+        }
+      ]
     ]
   }
 }

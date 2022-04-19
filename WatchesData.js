@@ -1,16 +1,17 @@
 import React from "react"
 import { View, Text, StyleSheet, FlatList } from "react-native"
 import { useRecoilValue } from "recoil"
-import Watches from "./atoms/Watches"
+import Watches from "@atoms/Watches"
+import theme from "@theme"
 
 const WatchesData = () => {
-  const { watches } = useRecoilValue(Watches)
+  const { watches, filterRmc } = useRecoilValue(Watches)
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View style={styles.commonMargin}>
-        <Text style={styles.textStyle}>{item.rmc}</Text>
-        <Text style={styles.textStyle}>{item.familyCode}</Text>
+        <Text style={styles.textStyle(index)}>{item.rmc}</Text>
+        <Text style={styles.textStyle(index)}>{item.familyCode}</Text>
       </View>
     )
   }
@@ -18,6 +19,7 @@ const WatchesData = () => {
   return (
     <FlatList
       horizontal
+      showsHorizontalScrollIndicator={false}
       keyExtractor={(item, index) => `${item.rmc}@${index}`}
       data={watches}
       renderItem={renderItem}
@@ -26,9 +28,10 @@ const WatchesData = () => {
 }
 
 const styles = StyleSheet.create({
-  textStyle: {
-    marginHorizontal: 8
-  },
+  textStyle: index => ({
+    marginHorizontal: 8,
+    color: index % 2 !== 0 ? theme.default : theme.rocket
+  }),
   commonMargin: {
     marginBottom: 16
   }

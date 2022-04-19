@@ -11,8 +11,8 @@ import {
 import Toast from "react-native-toast-message"
 
 import { useSetRecoilState } from "recoil"
-import { default as WatchesAtom } from "./atoms/Watches"
-import GetWatchesByFamilyCode from "./atoms/Watches/selectors/watchByCode"
+import { default as WatchesAtom } from "@atoms/Watches"
+import GetWatchesByFamilyCode from "@atoms/Watches/selectors/watchByCode"
 
 const Watches = () => {
   const setWatches = useSetRecoilState(WatchesAtom)
