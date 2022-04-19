@@ -1,8 +1,8 @@
 import Watches from "../atoms/Watches"
-import { useRecoilState } from "recoil"
+import { useRecoilValue } from "recoil"
 
 export default () => {
-  const [watches] = useRecoilState(Watches)
+  const watches = useRecoilValue(Watches)
 
   return { watches }
 }

@@ -5,6 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest",
     "eject": "expo eject"
   },
   "dependencies": {
@@ -18,13 +19,20 @@
     "recoil": "^0.7.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@testing-library/jest-native": "^4.0.4",
+    "@testing-library/react-native": "^9.1.0",
+    "babel-jest": "^27.5.1",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
     "eslint-plugin-react-native": "^4.0.0",
-    "prettier": "^2.6.2"
+    "jest": "^27.5.1",
+    "jest-expo": "^44.0.1",
+    "prettier": "^2.6.2",
+    "react-test-renderer": "17"
   },
   "private": true
 }

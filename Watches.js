@@ -8,7 +8,7 @@ import {
   Button
 } from "react-native"
 
-import { Toast } from "react-native-toast-message/lib/src/Toast"
+import Toast from "react-native-toast-message"
 
 import { useSetRecoilState } from "recoil"
 import { default as WatchesAtom } from "./atoms/Watches"
@@ -42,6 +42,7 @@ const Watches = () => {
       </View>
 
       <TouchableOpacity
+        testID="test-addSubmariner"
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() =>
@@ -58,6 +59,7 @@ const Watches = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
+        testID="test-addDatejust"
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() =>
@@ -78,6 +80,7 @@ const Watches = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
+        testID="test-removeLast"
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() =>
@@ -86,8 +89,8 @@ const Watches = () => {
               return {
                 ...prevWatches,
                 watches: prevWatches.watches.slice(
-                  1,
-                  prevWatches.watches.length
+                  0,
+                  prevWatches.watches.length - 1
                 )
               }
             }
@@ -98,6 +101,7 @@ const Watches = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
+        testID="test-clearState"
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() => setWatches({ watches: [], dynamicWatches: [] })}

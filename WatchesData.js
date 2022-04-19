@@ -1,32 +1,33 @@
 import React from "react"
-import { View, Text, StyleSheet } from "react-native"
-
+import { View, Text, StyleSheet, FlatList } from "react-native"
 import { useRecoilValue } from "recoil"
-import GetWatchesByFamilyCode from "./atoms/Watches/selectors/watchByCode"
-
-import useDynamicWatches from "./hooks/useDynamicWatches"
+import Watches from "./atoms/Watches"
 
 const WatchesData = () => {
-  const { watches } = useDynamicWatches()
-  const watchesByCode = useRecoilValue(GetWatchesByFamilyCode)
+  const { watches } = useRecoilValue(Watches)
 
-  console.log("render", Date.now())
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.commonMargin}>
+        <Text style={styles.textStyle}>{item.rmc}</Text>
+        <Text style={styles.textStyle}>{item.familyCode}</Text>
+      </View>
+    )
+  }
 
   return (
-    <View>
-      <Text style={[styles.textStyle, styles.commonMargin]}>
-        Watches {JSON.stringify(watches)}
-      </Text>
-      <Text style={styles.textStyle}>
-        Watch by code {JSON.stringify(watchesByCode)}
-      </Text>
-    </View>
+    <FlatList
+      horizontal
+      keyExtractor={(item, index) => `${item.rmc}@${index}`}
+      data={watches}
+      renderItem={renderItem}
+    />
   )
 }
 
 const styles = StyleSheet.create({
   textStyle: {
-    alignSelf: "center"
+    marginHorizontal: 8
   },
   commonMargin: {
     marginBottom: 16
