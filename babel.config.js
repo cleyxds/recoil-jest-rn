@@ -6,6 +6,7 @@ module.exports = function (api) {
       ["@babel/preset-env", { targets: { node: "current" } }]
     ],
     plugins: [
+      "react-native-reanimated/plugin",
       [
         "module-resolver",
         {

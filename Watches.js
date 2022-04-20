@@ -11,13 +11,13 @@ import {
 import Toast from "react-native-toast-message"
 
 import { useSetRecoilState } from "recoil"
-import { default as WatchesAtom } from "@atoms/Watches"
 import GetWatchesByFamilyCode from "@atoms/Watches/selectors/watchByCode"
+import useWatches from "@atoms/Watches"
 
-const Watches = () => {
-  const setWatches = useSetRecoilState(WatchesAtom)
-  const [text, setText] = useState("")
+export default function Watches() {
+  const { actions, setWatches } = useWatches()
   const setWatchByCode = useSetRecoilState(GetWatchesByFamilyCode)
+  const [text, setText] = useState("")
 
   return (
     <View>
@@ -46,13 +46,7 @@ const Watches = () => {
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() =>
-          setWatches(prevWatches => ({
-            ...prevWatches,
-            watches: [
-              ...prevWatches.watches,
-              { rmc: "1273y1nxi", familyCode: "submariner" }
-            ]
-          }))
+          actions.addWatch({ rmc: "1273y1nxi", familyCode: "submariner" })
         }
       >
         <Text style={styles.textStyle}>Add submariner</Text>
@@ -63,17 +57,7 @@ const Watches = () => {
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() =>
-          setWatches(prevWatches => {
-            if (prevWatches) {
-              return {
-                ...prevWatches,
-                watches: [
-                  ...prevWatches.watches,
-                  { rmc: "1ij901asd", familyCode: "datejust" }
-                ]
-              }
-            }
-          })
+          actions.addWatch({ rmc: "1ij901asd", familyCode: "datejust" })
         }
       >
         <Text style={styles.textStyle}>Add Datejust</Text>
@@ -85,6 +69,12 @@ const Watches = () => {
         style={[styles.buttonStyle, styles.commonMargin]}
         onPress={() =>
           setWatches(prevWatches => {
+            if (prevWatches.watches.length === 0) {
+              // If the list is empty show error toast
+              Toast.show({ type: "error" })
+              return { ...prevWatches }
+            }
+
             if (prevWatches) {
               return {
                 ...prevWatches,
@@ -104,7 +94,7 @@ const Watches = () => {
         testID="test-clearState"
         activeOpacity={0.75}
         style={[styles.buttonStyle, styles.commonMargin]}
-        onPress={() => setWatches({ watches: [], dynamicWatches: [] })}
+        onPress={actions.clearWatches}
       >
         <Text style={styles.textStyle}>Clear State</Text>
       </TouchableOpacity>
@@ -140,5 +130,3 @@ const styles = StyleSheet.create({
     borderRadius: 12
   }
 })
-
-export default Watches
